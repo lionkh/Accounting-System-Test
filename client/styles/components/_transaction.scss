@@ -1,0 +1,52 @@
+.transaction-list {
+  .transaction-item {
+    margin: 0 auto;
+
+    .panel {
+      .panel-heading {
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    &.credit {
+      .panel {
+        .panel-heading {
+          background: $credit_color;
+        }
+      }
+
+    }
+    &.debit {
+      .panel {
+        .panel-heading {
+          background: $debit_color;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .transaction-item {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .transaction-item {
+    width: 80%;
+  }
+}
+
+@media (min-width: 992px) {
+  .transaction-item {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .transaction-item {
+    width: 50%;
+  }
+}
