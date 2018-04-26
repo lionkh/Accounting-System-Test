@@ -1,3 +1,4 @@
 module.exports = {
-  invalidAmount: 'Invalid amount!'
+  invalidAmount: 'Invalid amount!',
+  fieldsMissing: 'Enter all required fields!'
 };

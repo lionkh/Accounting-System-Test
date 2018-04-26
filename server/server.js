@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({ origin: config.whitelist }));
 
 app.use(config.apiPrefix, routes);
+app.get("/", (req, res) => res.json({ message: "Welcome to the Accounting System !" }));
 
 app.listen(PORT, err => {
   if (err) {
@@ -30,4 +31,6 @@ app.listen(PORT, err => {
   }
   console.log(`Listening on ${ PORT }`)
 });
+
+module.exports = app;
 

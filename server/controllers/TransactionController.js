@@ -18,10 +18,20 @@ class TransactionController {
   static create(req, res) {
     TransactionService.findAll()
         .then(transactions => {
-              const TRANSACTION_TO_CREATE = Object.assign({}, JSON.parse(req.body.transaction), {
+              const TRANSACTION_TO_CREATE = Object.assign({}, JSON.parse(req.body.transaction) || req.body.transaction, {
                 id: uuidv1(),
                 effectiveDate: moment().format('MMMM Do YYYY, h:mm:ss a')
               });
+
+              if (!TRANSACTION_TO_CREATE.amount || !TRANSACTION_TO_CREATE.type) {
+                res.status(500).json({
+                  error: {
+                    message: errors.fieldsMissing
+                  }
+                });
+                return;
+              }
+
               let commonAmount = 0;
               transactions.forEach(item => {
                 commonAmount = commonAmount + (parseFloat(item.amount));
@@ -49,7 +59,7 @@ class TransactionController {
                               AMOUNT_TO_CHANGE = parseFloat(amount) + parseFloat(TRANSACTION_TO_CREATE.amount);
                             }
                             TransactionService.updateStorageValue('amount', AMOUNT_TO_CHANGE);
-                            res.status(200).json(TRANSACTION_TO_CREATE);
+                            res.status(200).json({ transaction: TRANSACTION_TO_CREATE, message: 'success' });
                           });
                     }
 
@@ -65,7 +75,7 @@ class TransactionController {
     TransactionService.findById(req.params.id)
         .then(transaction => {
           if (transaction.id !== req.params.id) {
-            res.sendStatus(403);
+            res.sendStatus(500);
             return;
           }
           res.status(200).json(transaction);
@@ -77,7 +87,7 @@ class TransactionController {
   static deleteById(req, res) {
     TransactionService.deleteById(req.params.id)
         .then(() => {
-          res.sendStatus(200);
+          res.status(200).json({ message: 'Transaction deleted.' });
         })
         .catch(() => res.sendStatus(500));
 
