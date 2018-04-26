@@ -62,7 +62,7 @@ describe('Transactions', () => {
 
 
   describe('/POST transaction', () => {
-    it('it should faild a post because global amount would be negative ', done => {
+    it('it should fail because global amount would be negative ', done => {
       const TRANSACTION = JSON.stringify(
           {
             type: "credit",
@@ -85,7 +85,7 @@ describe('Transactions', () => {
   });
 
   describe('/POST transaction', () => {
-    it('it should faild a post because global amount would be negative ', done => {
+    it('it should fail because there are no required fields in the transaction obejct ', done => {
       const TRANSACTION = JSON.stringify({});
 
       chai.request(server)
@@ -122,7 +122,7 @@ describe('Transactions', () => {
   });
 
   describe('/DELETE/:id transaction', () => {
-    it('it should DELETE a transaction given the id', done => {
+    it('it should DELETE a transaction by the given id', done => {
       const TRANSACTION = new Transaction({ id: '1', type: "debit", amount: "10" });
 
       TransactionService.updateStorageValue('transactions', [TRANSACTION])
