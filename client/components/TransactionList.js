@@ -17,7 +17,7 @@ class TransactionList extends Component {
     return (
         <ListGroup className="transaction-list">
           {
-            this.props.transactions.map(item => <TransactionListItem key={item.id} transaction={item} deleteTransaction={this.props.deleteTransaction}/>).reverse()
+            this.props.transactions.map(item => <TransactionListItem key={item.id} transaction={item}/>).reverse()
           }
         </ListGroup>
     );

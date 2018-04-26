@@ -1,45 +1,28 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const compression = require('compression');
 const PORT = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+const LocalStorage = require('node-localstorage').LocalStorage;
 
+const config = require('./config');
+const routes = require('./routes');
 const app = express();
+
+if (typeof localStorage === "undefined" || localStorage === null) {
+  localStorage = new LocalStorage('./scratch');
+}
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
 app.use(bodyParser.json());
 app.use(compression());
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({ origin: config.whitelist }));
 
-//
-// app.route('/api/invoices/:invoice_id/items/:id')
-//     .get(function(req, res) {
-//       InvoiceItem.findById(req.params.id).then(function(invoice_item) {
-//         res.json(invoice_item);
-//       });
-//     })
-//     .put(function(req, res) {
-//       InvoiceItem.findById(req.params.id).then(function(invoice_item) {
-//         invoice_item.update(_.pick(req.body, ['product_id', 'quantity'])).then(function(invoice_item) {
-//           res.json(invoice_item);
-//         });
-//       });
-//     })
-//     .delete(function(req, res) {
-//       InvoiceItem.findById(req.params.id).then(function(invoice_item) {
-//         invoice_item.destroy().then(function(invoice_item) {
-//           res.json(invoice_item);
-//         });
-//       });
-//     });
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+app.use(config.apiPrefix, routes);
 
 app.listen(PORT, err => {
   if (err) {

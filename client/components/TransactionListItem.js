@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import Transaction from '../models/Transaction';
 
+import { getHumanDate } from "../utils/timeStampUtils";
+
 class TransactionListItem extends Component {
   static propTypes = {
     transaction: Transaction,
@@ -35,9 +37,8 @@ class TransactionListItem extends Component {
             {
               this.state.showFullInformation && <Panel.Body>
                 <h4>Type: {transaction.type}</h4>
-                <h4>Date: {transaction.effectiveDate}</h4>
+                <h4>Date: {getHumanDate(transaction.effectiveDate)}</h4>
                 <h4>Amount: {transaction.amount}</h4>
-                <Button bsStyle="danger" onClick={() => this.props.deleteTransaction(transaction.id)}>Delete transaction</Button>
               </Panel.Body>
             }
           </Panel>

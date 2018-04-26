@@ -21,6 +21,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^3.x",
     "bootstrap-sass": "^3.3.7",
+    "cors": "^2.8.4",
     "file-loader": "^1.1.6",
     "font-awesome": "^4.7.0",
     "keymirror": "^0.1.1",
@@ -39,7 +40,8 @@
     "react-thunk": "^1.0.0",
     "react-transition-group": "^1",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.3",

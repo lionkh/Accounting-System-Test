@@ -1,5 +1,5 @@
 import moment from 'moment';
 
-export function getCurrentDate() {
-  return moment().format('MMMM Do YYYY, h:mm:ss a');
+export function getHumanDate(date) {
+  return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 }
